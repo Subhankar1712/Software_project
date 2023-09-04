@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Graphic Editor</title>
+  <meta name="description" content="This is free online Graphic Editor. You can create basic shapes in this graphic editor and also move shapes.">
+</head>
+<body>
+  <div id ="container">
+
+
+
+
+  <h1>Draw Rectangles on Mouse Move in SVG</h1>
+  <svg id="my-svg" width="700" height="450" style="background-color: blue; margin-top:0px; margin-left:0px"></svg>
+
+ 
+  </div>
+  <script>
+
+    let svg = document.getElementById('my-svg');
+    let startX, startY;
+
+
+ 
+   
+    let rectangle;
+    let rectangle2;
+
+    
+
+    function handleMouseDown(event) {
+
+rectangle2 = true;
+
+
+      
+      startX = event.clientX
+      startY = event.clientY
+
+
+      rectangle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rectangle.setAttribute('stroke', 'black');
+      rectangle.setAttribute('fill', 'transparent');
+      svg.appendChild(rectangle);
+  
+  
+  
+  
+  
+  
+  }
+
+    function handleMouseMove(event) {
+      if (rectangle2 ===true) {
+        var rect = svg.getBoundingClientRect();
+        
+        const width = Math.abs(event.clientX - startX);
+        const height = Math.abs(event.clientY - startY);
+
+        rectangle.setAttribute('x', Math.min(startX, event.clientX-rect.left));
+        rectangle.setAttribute('y', Math.min(startY, event.clientY-rect.top));
+        rectangle.setAttribute('width', width);
+        rectangle.setAttribute('height', height);
+      }
+    }
+
+
+    function handleMouseUp() {
+      rectangle2 = false;
+    }
+
+    svg.addEventListener('mousedown', handleMouseDown);
+    svg.addEventListener('mousemove', handleMouseMove);
+    svg.addEventListener('mouseup', handleMouseUp);
+  </script>
+</body>
+</html>
